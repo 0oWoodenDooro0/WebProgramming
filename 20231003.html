@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div#main_content{
+            display: flex;
+            justify-content: center;
+            background-color: yellow;
+        }
+        div#left_content{
+            float: left;
+            padding: 20px;
+            background-color: deepskyblue;
+            text-align: center;
+        }
+        img{
+            border-radius: 50%;
+        }
+        div#right_content{
+            float: right;
+            padding: 20px;
+            background-color: pink;
+        }
+        ul.navigation_bar{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #b931fc;
+        }
+        ul.navigation_bar li{
+            float: left;
+        }
+        ul.navigation_bar li a{
+            display: block;
+            color: #ffe5e5;
+            text-align: center;
+            padding: 16px;
+            text-decoration: none;
+        }
+        ul.navigation_bar li a:hover{
+            background-color: #5d12d2;
+            color: #ff6ac2;
+        }
+    </style>
+</head>
+<body>
+    <ul class="navigation_bar">
+        <li><a href="20231003.html">Home</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="activity.html">Activity</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+    </ul>
+    <div id="main_content">
+        <div id="left_content">
+            <img src="images/man.png" alt="Person" width="200">
+            <p>王小明</p>
+            <p>學生</p>
+        </div>
+        <div id="right_content">
+            <p>
+                自傳.................................................<br>......................................................
+            </p>
+            <ul>
+                <li style="color: red"><a href="https://www.google.com/">Google</a></li>
+                <li style="color: blue"><a href="https://www.baidu.com/">百度</a></li>
+                <li style="color: lightblue"><a href="https://www.bing.com/">Bing</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
