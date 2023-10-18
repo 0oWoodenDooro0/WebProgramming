@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            width: fit-content;
+            height: fit-content;
+            position: relative;
+        }
+
+        .image {
+            border-radius: 50%;
+            transition: .5s ease;
+        }
+
+        .overlay {
+            opacity: 0;
+            transition: .5s ease;
+            border-radius: 50%;
+        }
+
+        .container:hover .overlay {
+            opacity: 0.5;
+        }
+
+        .text {
+            display: table;
+            text-align: center;
+            height: 50px;
+            width: 100%;
+            color: black;
+            font-size: 20px;
+            position: absolute;
+            top: 85%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+        }
+
+        .text span{
+            display: table-cell;
+            vertical-align: middle;
+            line-height: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="images/man.png" alt="man" class="image"/>
+        <div class="overlay">
+            <div class="text"><span>Hello World</span></div>
+        </div>
+    </div>
+    <div class="container">
+        <img src="images/man.png" alt="man" class="image" usemap="#map"/>
+    </div>
+    <map name="map">
+        <area shape="rect" coords="184, 161, 309, 326" alt="face" href="index.html">
+    </map>
+</body>
+</html>
