@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="20231024.css">
+    <script type="text/javascript" src="20231024.js"></script>
+</head>
+<body>
+    <table id="table">
+        <tr>
+            <th>Math</th>
+            <th>English</th>
+            <th>Programming</th>
+        </tr>
+        <tr>
+            <td>90</td>
+            <td>60</td>
+            <td>80</td>
+        </tr>
+        <tr>
+            <td>80</td>
+            <td>86</td>
+            <td>98</td>
+        </tr>
+    </table>
+    <div>
+        <br>
+        Change The Table Width<br>
+        <button onclick="changeTableWidth(200)">200px</button>
+        <button onclick="changeTableWidth(500)">500px</button>
+    </div>
+    <div>
+        <br>
+        Change The Border and the Spacing Width<br>
+        <button onclick="changeBorderAndSpacing(1)">1px</button>
+        <button onclick="changeBorderAndSpacing(10)">10px</button>
+        <button onclick="changeBorderAndSpacing(20)">20px</button>
+    </div>
+    <div>
+        <br>
+        Change The Table Color<br>
+        <button onclick="changeTableBackgroundColor('#8fbc8f')" style="background-color: darkseagreen;width: 35px;height: 20px"></button>
+        <button onclick="changeTableBackgroundColor('#00ffff')" style="background-color: cyan;width: 35px;height: 20px"></button>
+        <button onclick="changeTableBackgroundColor('#9370db')" style="background-color: mediumpurple;width: 35px;height: 20px"></button>
+        <button onclick="changeTableBackgroundColor('#e9967a')" style="background-color: darksalmon;width: 35px;height: 20px"></button>
+    </div>
+    <div>
+        <br>
+        <button onclick="reset()">Reset</button>
+    </div>
+</body>
+</html>
