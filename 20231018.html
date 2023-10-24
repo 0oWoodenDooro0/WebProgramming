@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        td {
+            width: 80px;
+        }
+    </style>
+    <script>
+        document.write("<table>")
+        for (let i = 1; i < 10; i++) {
+            document.write("<tr>")
+            for (let j = 2; j < 10; j++) {
+                document.write(`<td>${j} * ${i} = ${i * j} </td>`)
+            }
+            document.write("</tr>")
+        }
+        document.write("</table>")
+
+        function addBorder() {
+            const img = document.getElementById("image");
+            img.style.border = "10px solid black";
+        }
+
+        function changeColor() {
+            const text = document.getElementById("text");
+            text.style.color = "blue";
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <p>Hello!</p>
+        <p id="text">Nice to meet you!</p>
+        <img id="image" alt="man" src="images/man.png">
+    </div>
+    <div>
+        <button onclick="addBorder()">Add Border</button>
+        <button onclick="changeColor()">Change Color</button>
+    </div>
+    <canvas id="canvas" width="200" height="200" style="border:1px solid black;"></canvas>
+    <script>
+        const c = document.getElementById("canvas");
+        const ctx = c.getContext("2d");
+        ctx.globalAlpha = .5;
+        ctx.fillRect(20, 20, 100, 100);
+        ctx.fillStyle = "blue";
+        ctx.fillRect(50, 50, 120, 120);
+    </script>
+</body>
+</html>
