@@ -11,7 +11,11 @@ function changeBorderAndSpacing(n){
 
 function changeTableBackgroundColor(color){
     const table = document.getElementById("table");
+    const tds = document.getElementsByTagName("td");
     table.style.backgroundColor = color;
+    for (let td of tds){
+        td.style.backgroundColor = color;
+    }
 }
 
 function reset(){
@@ -20,4 +24,8 @@ function reset(){
     table.style.border = "1px solid black";
     table.style.borderSpacing = "2px";
     table.style.backgroundColor = "khaki";
+    const tds = document.getElementsByTagName("td");
+    for (let td of tds){
+        td.style.backgroundColor = "khaki";
+    }
 }
