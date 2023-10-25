@@ -78,15 +78,30 @@ function drawNumbers(ctx, radius) {
     ctx.font = radius * 0.15 + "px arial";
     ctx.textBaseline = "middle";
     ctx.textAlign = "center";
+    let hours = ["0","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
     for (let num = 1; num < 13; num++) {
         let ang = num * Math.PI / 6;
         ctx.rotate(ang);
-        ctx.translate(0, -radius * 0.85);
+        ctx.translate(0, -radius * 0.8);
         ctx.rotate(-ang);
-        ctx.fillText(num.toString(), 0, 0);
+        ctx.fillText(hours[num], 0, 0);
         ctx.rotate(ang);
-        ctx.translate(0, radius * 0.85);
+        ctx.translate(0, radius * 0.8);
         ctx.rotate(-ang);
+    }
+    for (let i = 0; i < 60; i++) {
+        let rad = 2 * Math.PI / 60 * i;
+        let x = Math.cos(rad) * (radius - 6 * ctx.canvas.width / 200);
+        let y = Math.sin(rad) * (radius - 6 * ctx.canvas.width / 200);
+        ctx.beginPath();
+        if (i % 5 ===0){
+            ctx.fillStyle = "#333";
+            ctx.arc(x,y,2*ctx.canvas.width / 200,0, 2*Math.PI, false);
+        }else{
+            ctx.fillStyle="#333";
+            ctx.arc(x,y,ctx.canvas.width /200, 0, 2*Math.PI,false);
+        }
+        ctx.fill();
     }
 }
 
