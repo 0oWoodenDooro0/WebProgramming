@@ -57,8 +57,9 @@ function drawScene(gl, programInfo, buffers) {
     );
 
     {
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 3);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 3, 3);
+        for (let i = 0; i < 20; i++) {
+            gl.drawArrays(gl.LINE_LOOP, 3 * i, 3);
+        }
     }
 }
 
@@ -83,4 +84,4 @@ function setPositionAttribute(gl, buffers, programInfo) {
     gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
 }
 
-export { drawScene };
+export {drawScene};
