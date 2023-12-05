@@ -1,5 +1,5 @@
-function drawScene(gl, programInfo, buffers) {
-    gl.clearColor(0.5, 0.5, 0.5, 1.0); // Clear to black, fully opaque
+function drawScene(gl, programInfo, buffers, squareRotation, scale, style) {
+    gl.clearColor(1.0, 1.0, 1.0, 1.0); // Clear to black, fully opaque
     gl.clearDepth(1.0); // Clear everything
     gl.enable(gl.DEPTH_TEST); // Enable depth testing
     gl.depthFunc(gl.LEQUAL); // Near things obscure far things
@@ -34,12 +34,21 @@ function drawScene(gl, programInfo, buffers) {
     mat4.translate(
         modelViewMatrix, // destination matrix
         modelViewMatrix, // matrix to translate
-        [-0.0, 0.0, -6.0]
+        [-0.0, 0.0, -6.0 * scale]
     ); // amount to translate
+
+    mat4.rotate(
+        modelViewMatrix, // destination matrix
+        modelViewMatrix, // matrix to rotate
+        squareRotation, // amount to rotate in radians
+        [0, 0, 1]
+    ); // axis to rotate around
 
     // Tell WebGL how to pull out the positions from the position
     // buffer into the vertexPosition attribute.
     setPositionAttribute(gl, buffers, programInfo);
+
+    setColorAttribute(gl, buffers, programInfo);
 
     // Tell WebGL to use our program when drawing
     gl.useProgram(programInfo.program);
@@ -57,8 +66,13 @@ function drawScene(gl, programInfo, buffers) {
     );
 
     {
-        for (let i = 0; i < 20; i++) {
-            gl.drawArrays(gl.LINE_LOOP, 3 * i, 3);
+        if (style){
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 3)
+            gl.drawArrays(gl.TRIANGLE_STRIP, 2, 3)
+        }
+        else{
+            gl.drawArrays(gl.LINE_LOOP, 0, 3)
+            gl.drawArrays(gl.LINE_LOOP, 2, 3)
         }
     }
 }
@@ -84,4 +98,24 @@ function setPositionAttribute(gl, buffers, programInfo) {
     gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
 }
 
-export {drawScene};
+// Tell WebGL how to pull out the colors from the color buffer
+// into the vertexColor attribute.
+function setColorAttribute(gl, buffers, programInfo) {
+    const numComponents = 4;
+    const type = gl.FLOAT;
+    const normalize = false;
+    const stride = 0;
+    const offset = 0;
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.color);
+    gl.vertexAttribPointer(
+        programInfo.attribLocations.vertexColor,
+        numComponents,
+        type,
+        normalize,
+        stride,
+        offset
+    );
+    gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor);
+}
+
+export { drawScene };

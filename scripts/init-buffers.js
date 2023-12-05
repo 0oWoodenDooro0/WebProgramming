@@ -1,8 +1,11 @@
 function initBuffers(gl) {
     const positionBuffer = initPositionBuffer(gl);
 
+    const colorBuffer = initColorBuffer(gl);
+
     return {
         position: positionBuffer,
+        color: colorBuffer,
     };
 }
 
@@ -15,29 +18,31 @@ function initPositionBuffer(gl) {
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
     // Now create an array of positions for the square.
-    const positions = [];
-    for (let i = 0; i < 10; i++) {
-        positions.push(0.1)
-        positions.push(0)
-        positions.push(Math.cos((18 * i - 90) * Math.PI / 180) + 0.1)
-        positions.push(Math.sin((18 * i - 90) * Math.PI / 180))
-        positions.push(Math.cos((18 * (i + 1) - 90) * Math.PI / 180) + 0.1)
-        positions.push(Math.sin((18 * (i + 1) - 90) * Math.PI / 180))
-    }
-    for (let i = 0; i < 10; i++) {
-        positions.push(-0.1)
-        positions.push(0)
-        positions.push(Math.cos((18 * i + 90) * Math.PI / 180) - 0.1)
-        positions.push(Math.sin((18 * i + 90) * Math.PI / 180))
-        positions.push(Math.cos((18 * (i + 1) + 90) * Math.PI / 180) - 0.1)
-        positions.push(Math.sin((18 * (i + 1) + 90) * Math.PI / 180))
-    }
+    const positions = [-1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0];
     // Now pass the list of positions into WebGL to build the
     // shape. We do this by creating a Float32Array from the
     // JavaScript array, then use it to fill the current buffer.
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
     return positionBuffer;
+}
+
+function initColorBuffer(gl) {
+    const colors = [];
+
+    for (let i = 0; i < 5; i++) {
+        colors.push(1.0);
+        colors.push(0.0);
+        colors.push(0.0);
+        colors.push(1.0);
+    }
+
+
+    const colorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+
+    return colorBuffer;
 }
 
 export {initBuffers};

@@ -1,13 +1,16 @@
 import {initBuffers} from "./init-buffers.js";
 import {drawScene} from "./draw-scene.js";
 
+let squareRotation = 0.0;
+let deltaTime = 0;
+
 main();
 
 //
 // start here
 //
 function main() {
-    const canvas = document.querySelector("#glCanvas");
+    const canvas = document.querySelector("#glcanvas");
     // Initialize the GL context
     const gl = canvas.getContext("webgl");
 
@@ -25,18 +28,29 @@ function main() {
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     // Vertex shader program
+
     const vsSource = `
     attribute vec4 aVertexPosition;
+    attribute vec4 aVertexColor;
+
     uniform mat4 uModelViewMatrix;
     uniform mat4 uProjectionMatrix;
-    void main() {
+
+    varying lowp vec4 vColor;
+
+    void main(void) {
       gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+      vColor = aVertexColor;
     }
-`;
+  `;
+
+    // Fragment shader program
 
     const fsSource = `
-    void main() {
-      gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    varying lowp vec4 vColor;
+
+    void main(void) {
+      gl_FragColor = vColor;
     }
   `;
 
@@ -45,12 +59,14 @@ function main() {
     const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
 
     // Collect all the info needed to use the shader program.
-    // Look up which attribute our shader program is using
-    // for aVertexPosition and look up uniform locations.
+    // Look up which attributes our shader program is using
+    // for aVertexPosition, aVertexColor and also
+    // look up uniform locations.
     const programInfo = {
         program: shaderProgram,
         attribLocations: {
             vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),
+            vertexColor: gl.getAttribLocation(shaderProgram, "aVertexColor"),
         },
         uniformLocations: {
             projectionMatrix: gl.getUniformLocation(
@@ -65,8 +81,42 @@ function main() {
     // objects we'll be drawing.
     const buffers = initBuffers(gl);
 
-    // Draw the scene
-    drawScene(gl, programInfo, buffers);
+    let then = 0;
+    let rotationTime = 0;
+    let dir = 1;
+    let squareTime = 0;
+    let style = true;
+    let scale = 1;
+    let scaleDir = 1;
+
+    // Draw the scene repeatedly
+    function render(now) {
+        now *= 0.001; // convert to seconds
+        deltaTime = now - then;
+        then = now;
+
+        drawScene(gl, programInfo, buffers, squareRotation, scale, style);
+        squareRotation += deltaTime * dir;
+        scale += 0.005 * scaleDir;
+
+        rotationTime += deltaTime;
+        squareTime += deltaTime;
+        if (rotationTime >= 10) {
+            dir *= -1;
+            rotationTime = 0;
+        }
+        if (squareTime >= 20) {
+            style = !style;
+            squareTime = 0;
+        }
+        if (scale > 2.0 || scale < 0.5) {
+            scaleDir *= -1;
+        }
+
+        requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
 }
 
 //
